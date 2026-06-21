@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Fake Product Identification using Blockchain
 
 This project uses a Truffle smart contract, Ganache local blockchain, a static frontend, and an Express + MySQL backend for login/role management.
@@ -83,3 +84,7 @@ npx truffle compile
 - Backend login roles are stored as `manufacturer`, `seller`, and `consumer`.
 - Product data lives on the blockchain contract.
 - MySQL is used for user accounts and role mapping only.
+=======
+# Blockchain-CryptoQR-Product-Authentication-Chain
+A decentralized anti-counterfeit supply chain solution using Solidity smart contracts, Node.js, and MySQL to track product lifecycles and detect counterfeit goods via location-aware QR code mapping
+>>>>>>> 8f0983c47afc357d378079c9f54e9cd2c1dacbf5
