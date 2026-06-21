@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Products | AuthentiChain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>My Purchased Products</h1>
+    </header>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <a href="consumer.html" class="nav-link">Dashboard</a>
+            <a href="consumerPurchaseHistory.html" class="nav-link active">My Products</a>
+            <a href="verifyProducts.html" class="nav-link">Verify a Product</a>
+        </div>
+
+        <div class="card">
+            <h2>Your Blockchain Ownership Record</h2>
+            <p style="color: #636e72; margin-bottom: 20px;">Showing all products registered to your account on the blockchain.</p>
+
+            <div id="status-msg" style="text-align:center; padding: 10px; color: #b2bec3;">
+                Connecting to blockchain...
+            </div>
+
+            <div id="result-section" style="display: none;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <th style="text-align: left; padding: 12px; color: #00d2ff; font-size: 0.85rem; text-transform: uppercase;">Product SN</th>
+                            <th style="text-align: left; padding: 12px; color: #00d2ff; font-size: 0.85rem; text-transform: uppercase;">Sold By (Seller)</th>
+                            <th style="text-align: left; padding: 12px; color: #00d2ff; font-size: 0.85rem; text-transform: uppercase;">Made By (Manufacturer)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logdata"></tbody>
+                </table>
+
+                <div id="empty-msg" style="display:none; text-align:center; padding: 30px; color: #636e72;">
+                    No products found for your account yet.
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden consumer code and trigger button for JS -->
+        <input type="hidden" id="consumerCode" value="">
+        <button class="btn-register" style="display:none;"></button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/consumerPurchaseHistory.js"></script>
+    <script>
+        $(window).on('load', function() {
+            const userStr = localStorage.getItem('currentUser');
+            if (userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    if (user.role === 'consumer') {
+                        document.getElementById('consumerCode').value = user.username;
+                        // Auto-trigger after web3 + contract fully loads
+                        setTimeout(function() {
+                            $('.btn-register').click();
+                        }, 1500);
+                    }
+                } catch(e) {}
+            }
+        });
+    </script>
+</body>
+</html>

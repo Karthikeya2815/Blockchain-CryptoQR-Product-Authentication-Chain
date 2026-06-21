@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify Product | AuthentiChain</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Product Verification</h1>
+    </header>
+
+    <div class="container" style="max-width: 600px;">
+        <div class="nav-tabs">
+            <a href="consumer.html" class="nav-link">Dashboard</a>
+            <a href="consumerPurchaseHistory.html" class="nav-link">My Products</a>
+            <a href="verifyProducts.html" class="nav-link active">Verify a Product</a>
+        </div>
+
+        <div class="card">
+            <h2>Check Authenticity</h2>
+            <p style="color: #636e72; margin-bottom: 25px;">Enter the product's serial number. Your Consumer ID is filled automatically from your login.</p>
+
+            <div class="form-group">
+                <label>Product Serial Number</label>
+                <input type="text" class="form-control" id="productSN" placeholder="Enter or scan the product SN">
+            </div>
+
+            <div class="form-group">
+                <label>Your Consumer ID (Auto-Filled, Editable)</label>
+                <input type="text" class="form-control" id="consumerCode" placeholder="Enter Consumer ID to verify ownership">
+                <small style="color: #636e72;">Note: To test scanning a product sold to someone else, change this ID to a different username.</small>
+            </div>
+
+            <div class="form-group">
+                <label>Current Location (City)</label>
+                <input type="text" class="form-control" id="scanLocation" placeholder="e.g. New York, London, Mumbai">
+                <small style="color: #636e72;">Note: Scans in different cities within 1 hour will trigger a suspicion alert.</small>
+            </div>
+
+            <button class="btn btn-primary btn-block btn-register">Verify on Blockchain</button>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
+            
+            <h3>Advanced: Verify QR Image</h3>
+            <p style="font-size: 0.85rem; color: #636e72;">Upload the QR code image downloaded from the manufacturer to verify its cryptographic signature.</p>
+            
+            <div class="form-group">
+                <label>Upload QR Code Image</label>
+                <input type="file" class="form-control" id="qrInput" accept="image/*" style="background: #2d3436; color: #fff; padding: 10px;">
+            </div>
+            
+            <button class="btn btn-success btn-block" id="btn-verify-qr">Scan & Verify QR Image</button>
+
+            <!-- Hidden canvas for image processing -->
+            <canvas id="qrCanvas" style="display: none;"></canvas>
+        </div>
+
+        <div class="card" id="result-card" style="display: none; text-align: center; padding: 40px;">
+            <div id="logdata"></div>
+            <div id="scandata" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.9rem; color: #b2bec3;"></div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/verifyProduct.js"></script>
+    <script>
+        $(window).on('load', function() {
+            const userStr = localStorage.getItem('currentUser');
+            if (userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    document.getElementById('consumerCode').value = user.username;
+                } catch(e) {}
+            }
+        });
+
+        // Show result card when btn-register clicked
+        $(document).on('click', '.btn-register', function() {
+            document.getElementById('result-card').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

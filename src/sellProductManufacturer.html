@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ship Product | AuthentiChain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Step 2: Ship to Seller</h1>
+    </header>
+
+    <div class="container" style="max-width: 600px;">
+        <div class="card">
+            <h2>Transfer Ownership</h2>
+            <p style="color: #636e72; margin-bottom: 25px;">Enter the serial number of the product and the ID of the authorized seller receiving the shipment.</p>
+
+            <div class="form-group">
+                <label>Product Serial Number</label>
+                <input type="text" class="form-control" id="productSN" placeholder="Paste the SN here">
+            </div>
+            
+            <div class="form-group">
+                <label>Destination Seller ID</label>
+                <input type="text" class="form-control" id="sellerCode" placeholder="Enter Seller's Unique ID">
+            </div>
+
+            <button class="btn btn-primary btn-block btn-register">Confirm Blockchain Transfer</button>
+            <a href="manufacturer.html" class="btn btn-block" style="color: #7f8c8d;">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/sellProductManufacturer.js"></script>
+</body>
+</html>

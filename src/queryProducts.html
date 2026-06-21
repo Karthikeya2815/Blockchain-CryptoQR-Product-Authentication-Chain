@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Warehouse | AuthentiChain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>My Warehouse</h1>
+    </header>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <a href="seller.html" class="nav-link">Dashboard</a>
+            <a href="sellProductSeller.html" class="nav-link">Sell to Consumer</a>
+            <a href="queryProducts.html" class="nav-link active">My Warehouse</a>
+        </div>
+
+        <div class="card">
+            <h2>Products in Your Inventory</h2>
+            <p style="color: #636e72; margin-bottom: 20px;">All products shipped to you by manufacturers appear here.</p>
+
+            <div id="status-msg" style="text-align:center; padding: 10px; color: #b2bec3;">
+                Connecting to blockchain...
+            </div>
+
+            <div id="result-section" style="display: none;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <th style="text-align: left; padding: 12px; color: #00d2ff; font-size: 0.85rem; text-transform: uppercase;">Product SN</th>
+                            <th style="text-align: left; padding: 12px; color: #00d2ff; font-size: 0.85rem; text-transform: uppercase;">Product Name</th>
+                            <th style="text-align: left; padding: 12px; color: #00d2ff; font-size: 0.85rem; text-transform: uppercase;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logdata"></tbody>
+                </table>
+
+                <div id="empty-msg" style="display:none; text-align:center; padding: 30px; color: #636e72;">
+                    No products found in your inventory yet.
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden seller code for JS -->
+        <input type="hidden" id="sellerCode" value="">
+        <!-- btn-register hidden trigger -->
+        <button class="btn-register" style="display:none;"></button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/sellerApp.js"></script>
+    <script>
+        $(window).on('load', function() {
+            const userStr = localStorage.getItem('currentUser');
+            if (userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    if (user.role === 'seller') {
+                        document.getElementById('sellerCode').value = user.username;
+                        // Auto-trigger after web3 + contract fully loads
+                        setTimeout(function() {
+                            $('.btn-register').click();
+                        }, 1500);
+                    }
+                } catch(e) {}
+            }
+        });
+    </script>
+</body>
+</html>

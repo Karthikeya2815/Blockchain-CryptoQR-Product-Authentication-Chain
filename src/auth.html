@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuthentiChain | Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Secure Node Access</h1>
+    </header>
+
+    <div class="container" style="max-width: 450px;">
+        <div class="card" style="border: 2px solid var(--accent); box-shadow: 0 0 30px rgba(0, 242, 255, 0.1);">
+            <h2 id="form-title">Login to Network</h2>
+
+            <!-- LOGIN FORM -->
+            <div id="login-form">
+                <div class="form-group">
+                    <label>Username / ID</label>
+                    <input type="text" class="form-control" id="login-id" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label>Passcode</label>
+                    <input type="password" class="form-control" id="login-pass" placeholder="Enter your passcode">
+                </div>
+                <button class="btn btn-primary btn-block" onclick="handleLogin()">Sign In</button>
+                <p style="text-align: center; font-size: 14px; margin-top: 15px; color: #636e72;">
+                    No account? <a href="#" onclick="toggleAuth()" style="color: #00d2ff;">Register here</a>
+                </p>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <div id="register-form" style="display: none;">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" id="reg-name" placeholder="Your name or business name">
+                </div>
+                <div class="form-group">
+                    <label>Username / ID</label>
+                    <input type="text" class="form-control" id="reg-username" placeholder="Choose a unique username">
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select class="form-control" id="reg-role">
+                        <option value="manufacturer">Manufacturer</option>
+                        <option value="seller">Seller</option>
+                        <option value="consumer">Consumer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Passcode</label>
+                    <input type="password" class="form-control" id="reg-pass" placeholder="Create a passcode">
+                </div>
+                <button class="btn btn-success btn-block" onclick="handleRegistration()">Create Account</button>
+                <p style="text-align: center; font-size: 14px; margin-top: 15px; color: #636e72;">
+                    Have an account? <a href="#" onclick="toggleAuth()" style="color: #00d2ff;">Login here</a>
+                </p>
+            </div>
+        </div>
+
+        <a href="index.html" style="display: block; text-align: center; color: #636e72; text-decoration: none; margin-top: 15px;">&#8592; Return to Home</a>
+    </div>
+
+    <script>
+        // Read role from URL param and pre-select on page load
+        window.onload = function() {
+            var params = new URLSearchParams(window.location.search);
+            var role = params.get('role');
+            if (role) {
+                var select = document.getElementById('reg-role');
+                for (var i = 0; i < select.options.length; i++) {
+                    if (select.options[i].value === role) {
+                        select.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        };
+
+        function toggleAuth() {
+            var l = document.getElementById('login-form');
+            var r = document.getElementById('register-form');
+            var t = document.getElementById('form-title');
+            if (l.style.display === 'none') {
+                l.style.display = 'block';
+                r.style.display = 'none';
+                t.textContent = 'Login to Network';
+            } else {
+                l.style.display = 'none';
+                r.style.display = 'block';
+                t.textContent = 'Create Account';
+            }
+        }
+
+        async function handleRegistration() {
+            var name     = document.getElementById('reg-name').value.trim();
+            var username = document.getElementById('reg-username').value.trim();
+            var role     = document.getElementById('reg-role').value;
+            var pass     = document.getElementById('reg-pass').value;
+
+            if (!name || !username || !pass) {
+                alert('Please fill all fields.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: username, password: pass, role: role, name: name, eth_address: '0x0' })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Account created! Please login now.');
+                    toggleAuth();
+                    document.getElementById('login-id').value = username;
+                } else {
+                    alert('Registration failed: ' + result.error);
+                }
+            } catch(e) {
+                alert('Cannot reach backend. Is the server running on port 5000?');
+            }
+        }
+
+        async function handleLogin() {
+            var user = document.getElementById('login-id').value.trim();
+            var pass = document.getElementById('login-pass').value;
+
+            if (!user || !pass) { alert('Please enter your username and passcode.'); return; }
+
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: user, password: pass })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('userRole', result.user.role);
+                    localStorage.setItem('currentUser', JSON.stringify(result.user));
+
+                    if (result.user.role === 'manufacturer')   window.location.href = 'manufacturer.html';
+                    else if (result.user.role === 'seller')    window.location.href = 'seller.html';
+                    else                                       window.location.href = 'consumer.html';
+                } else {
+                    alert('Invalid credentials. Please try again.');
+                }
+            } catch(e) {
+                alert('Cannot reach backend. Is the server running on port 5000?');
+            }
+        }
+    </script>
+</body>
+</html>

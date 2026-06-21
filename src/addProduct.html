@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Product | AuthentiChain</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Step 1: Product Registration</h1>
+    </header>
+
+    <div class="container" style="max-width: 600px;">
+        <div class="card">
+            <h2>Enter Basic Details</h2>
+            
+            <input type="hidden" id="manufacturerID" value="">
+            <input id="productBrand" type="hidden" value="N/A">
+            <input id="productPrice" type="hidden" value="1">
+
+            <div class="form-group">
+                <label>Product Name (e.g. iPhone 15)</label>
+                <input type="text" class="form-control" id="productName" placeholder="What are you manufacturing?">
+            </div>
+            
+            <div class="form-group">
+                <label>Serial Number (Auto-Generated)</label>
+                <input type="text" class="form-control" id="productSN" readonly style="background: #2d3436; color: #00d2ff;">
+            </div>
+            <div class="form-group">
+                <label>Manufacture Location (City, Country)</label>
+                <input type="text" class="form-control" id="mfgLocation" placeholder="e.g. Geneva, Switzerland">
+            </div>
+
+            <button class="btn btn-primary btn-block btn-register">Register on Blockchain</button>
+            <a href="manufacturer.html" class="btn btn-block" style="color: #7f8c8d;">Cancel</a>
+        </div>
+
+        <div class="card" id="qr-card" style="display: none; text-align: center; border: 2px solid #00d2ff;">
+            <h2>Product Digital Twin Created!</h2>
+            <p style="font-size: 0.9rem; color: #b2bec3;">Print this QR code and attach it to the physical product.</p>
+            <img id="imgQR" src="" alt="QR Code" style="margin: 20px 0; border-radius: 10px;">
+            
+            <div style="margin-top: 10px; text-align: left;">
+                <label style="font-size: 0.75rem; color: #636e72;">Raw QR Data (For Verification):</label>
+                <textarea id="rawQR" readonly class="form-control" style="font-size: 0.7rem; height: 50px; background: #f9f9f9; color: #333;"></textarea>
+            </div>
+
+            <button class="btn btn-success btn-block" onclick="saveImage()" style="margin-top: 15px;">Download QR Label</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/productApp.js"></script>
+
+    <script>
+        $(window).on('load', function() {
+            // Auto-fill Manufacturer ID
+            const userStr = localStorage.getItem('currentUser');
+            if (userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    if (user.role === 'manufacturer') {
+                        document.getElementById('manufacturerID').value = user.username;
+                    }
+                } catch(e) {}
+            }
+
+            // Auto-generate random Serial Number
+            const randomSN = 'SN-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+            document.getElementById('productSN').value = randomSN;
+        });
+
+        function saveImage() {
+            var src = document.getElementById('imgQR').src;
+            saveAs(src, "Genuine_QR_" + document.getElementById('productSN').value + ".png");
+        }
+    </script>
+</body>
+</html>

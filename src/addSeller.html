@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Seller | AuthentiChain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Step 2: Authorize Seller</h1>
+    </header>
+
+    <div class="container" style="max-width: 600px;">
+        <div class="card">
+            <h2>Register Authorized Store</h2>
+            <p style="color: #636e72; margin-bottom: 25px;">Add a store to your authorized network so you can ship products to them.</p>
+            
+            <input type="hidden" id="manufacturerID" value="">
+
+            <div class="form-group">
+                <label>Store Name</label>
+                <input type="text" class="form-control" id="sellerName" placeholder="e.g. London Luxury Watches">
+            </div>
+
+            <div class="form-group">
+                <label>Store Brand</label>
+                <input type="text" class="form-control" id="sellerBrand" placeholder="e.g. Rolex Authorized Dealer">
+            </div>
+
+            <div class="form-group">
+                <label>Seller Code / ID (Must match their Username)</label>
+                <input type="text" class="form-control" id="sellerCode" placeholder="e.g. LUXURY_SHOP">
+            </div>
+
+            <div class="form-group">
+                <label>Seller Phone Number</label>
+                <input type="number" class="form-control" id="sellerNum" placeholder="e.g. 442012345678">
+            </div>
+
+            <div class="form-group">
+                <label>Manager Name</label>
+                <input type="text" class="form-control" id="sellerManager" placeholder="e.g. John Doe">
+            </div>
+
+            <div class="form-group">
+                <label>Store Address</label>
+                <input type="text" class="form-control" id="sellerAddress" placeholder="e.g. 123 Mayfair, London">
+            </div>
+
+            <button class="btn btn-primary btn-block btn-register">Authorize on Blockchain</button>
+            <a href="manufacturer.html" class="btn btn-block" style="color: #7f8c8d;">Back to Dashboard</a>
+        </div>
+
+        <div class="card" id="success-card" style="display:none; text-align: center; border: 2px solid #00b894;">
+            <h2 style="color: #00b894;">&#10003; Seller Authorized!</h2>
+            <p>This store is now linked to your factory network on the blockchain.</p>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/addSeller.js"></script>
+
+    <script>
+        $(window).on('load', function() {
+            const userStr = localStorage.getItem('currentUser');
+            if (userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    document.getElementById('manufacturerID').value = user.username;
+                } catch(e) {}
+            }
+        });
+    </script>
+</body>
+</html>

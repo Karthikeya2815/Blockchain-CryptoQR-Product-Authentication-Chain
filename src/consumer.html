@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Consumer | AuthentiChain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Consumer Dashboard</h1>
+    </header>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <a href="consumer.html" class="nav-link active">Dashboard</a>
+            <a href="consumerPurchaseHistory.html" class="nav-link">My Products</a>
+            <a href="verifyProducts.html" class="nav-link">Verify a Product</a>
+        </div>
+
+        <div class="card" id="welcome-card">
+            <h2>Welcome, <span id="user-name" style="color: #00d2ff;">Consumer</span></h2>
+            <p style="color: #636e72;">Your blockchain-protected product ownership is tracked below.</p>
+        </div>
+
+        <div class="card">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px;">
+                <a href="consumerPurchaseHistory.html" class="btn btn-primary" style="padding: 30px;">
+                    <b style="font-size: 1.2rem;">My Products</b><br>
+                    View everything you own
+                </a>
+                <a href="verifyProducts.html" class="btn btn-success" style="padding: 30px;">
+                    <b style="font-size: 1.2rem;">Verify Product</b><br>
+                    Check if a product is genuine
+                </a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="portal.html" class="btn btn-danger btn-block" onclick="localStorage.clear()">Logout</a>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const userStr = localStorage.getItem('currentUser');
+            if (userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    document.getElementById('user-name').textContent = user.name || user.username;
+                } catch(e) {}
+            }
+        };
+    </script>
+</body>
+</html>

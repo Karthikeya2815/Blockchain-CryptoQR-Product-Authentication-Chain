@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sell to Consumer | AuthentiChain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Final Sale to Consumer</h1>
+    </header>
+
+    <div class="container" style="max-width: 600px;">
+        <div class="card">
+            <h2>Transfer Product to Buyer</h2>
+            <p style="color: #636e72; margin-bottom: 25px;">Enter the product's serial number and the consumer's registered ID to finalize the sale on the blockchain.</p>
+
+            <div class="form-group">
+                <label>Product Serial Number</label>
+                <input type="text" class="form-control" id="productSN" placeholder="Enter product SN (e.g. SN-4K9X2P)">
+            </div>
+
+            <div class="form-group">
+                <label>Consumer ID</label>
+                <input type="text" class="form-control" id="consumerCode" placeholder="Enter Consumer's registered username">
+            </div>
+
+            <div class="form-group">
+                <label>Purchase Location (Store City)</label>
+                <input type="text" class="form-control" id="purchaseLocation" placeholder="e.g. London, UK">
+            </div>
+
+            <button class="btn btn-success btn-block btn-register">Finalize Sale on Blockchain</button>
+            <a href="seller.html" class="btn btn-block" style="color: #7f8c8d;">Back to Dashboard</a>
+        </div>
+
+        <div class="card" id="success-card" style="display:none; text-align: center; border: 2px solid #00b894;">
+            <h2 style="color: #00b894;">&#10003; Sale Confirmed!</h2>
+            <p>The product has been successfully transferred to the consumer on the blockchain.</p>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/sellProductSeller.js"></script>
+</body>
+</html>

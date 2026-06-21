@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSIT | Blockchain Ecosystem</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero-section {
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(10, 20, 40, 0.4);
+            border-radius: 40px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 40px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.05);
+        }
+        /* Corners */
+        .hero-section::before, .hero-section::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--accent);
+        }
+        .hero-section::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; border-radius: 20px 0 0 0; }
+        .hero-section::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; border-radius: 0 0 20px 0; }
+
+        .tech-highlight {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tech-badge i { font-size: 1rem; }
+
+        .member-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .member-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 20px;
+            text-align: left;
+            position: relative;
+            transition: all 0.4s;
+        }
+        .member-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            background: rgba(0, 242, 255, 0.05);
+        }
+        .member-card .role-title {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .member-card h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .member-card .usn {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .guide-box {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(112, 0, 255, 0.1), rgba(0, 242, 255, 0.05));
+            border-radius: 25px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+
+        .college-logo {
+            height: 160px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.4));
+        }
+
+        .project-title {
+            font-size: 2.8rem;
+            background: linear-gradient(to bottom, #fff 40%, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header style="background: transparent; border: none; backdrop-filter: none; padding: 40px 0;">
+        <img src="ssit_logo.png" alt="SSIT Logo" class="college-logo">
+        <div style="font-size: 1.5rem; font-weight: 800; letter-spacing: 3px; color: #fff;">SRI SIDDHARTHA INSTITUTE OF TECHNOLOGY</div>
+        <div style="color: var(--accent); font-size: 0.9rem; letter-spacing: 2px; font-weight: 600; margin-top: 5px;">DEPARTMENT OF AIML, TUMKURU</div>
+    </header>
+
+    <div class="container">
+        <div class="hero-section">
+            <div style="background: var(--accent); color: var(--bg); padding: 5px 20px; border-radius: 50px; font-size: 0.75rem; font-weight: 900; letter-spacing: 3px; display: inline-block; margin-bottom: 30px;">BLOCKCHAIN NODE ACTIVE</div>
+            
+            <h1 class="project-title">Blockchain-Based Ecosystem for Eliminating Counterfeit Goods via Cryptographic QR Mapping</h1>
+            
+            <p style="color: rgba(224, 250, 255, 0.7); font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+                A decentralized integrity protocol built to secure global commerce through immutable ledger tracking and advanced cryptographic verification.
+            </p>
+
+            <div class="tech-highlight">
+                <div class="tech-badge"><span>💠</span> ETHEREUM/SOLIDITY</div>
+                <div class="tech-badge"><span>⚙️</span> NODE.JS</div>
+                <div class="tech-badge"><span>🔑</span> SHA-256 HMAC</div>
+                <div class="tech-badge"><span>🧠</span> AIML DEPT SSIT</div>
+            </div>
+
+            <div class="member-grid">
+                <div class="member-card">
+                    <div class="role-title">Core Project Member</div>
+                    <h3>Sumith Hiremath</h3>
+                    <div class="usn">USN: 23AI047</div>
+                </div>
+                <div class="member-card">
+                    <div class="role-title">Core Project Member</div>
+                    <h3>G.Karthikeya</h3>
+                    <div class="usn">USN: 24AI400</div>
+                </div>
+            </div>
+
+            <div class="guide-box">
+                <div style="font-size: 0.7rem; letter-spacing: 4px; color: var(--text-muted); margin-bottom: 10px;">FACULTY MENTOR</div>
+                <h3 style="font-size: 1.6rem; color: #fff; margin-bottom: 5px;">MANOJ D R</h3>
+                <p style="color: var(--accent); font-weight: 600;">Assistant Professor, Dept of AIML</p>
+            </div>
+
+            <a href="portal.html" class="btn btn-primary" style="margin-top: 60px; font-size: 1.2rem; padding: 25px 60px; border-radius: 20px;">INITIALIZE PROJECT SYSTEM</a>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 SSIT - AIML Department | Advanced Blockchain Research</footer>
+</body>
+</html>
